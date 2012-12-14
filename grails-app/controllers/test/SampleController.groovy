@@ -44,19 +44,19 @@ class SampleController {
 
         vertxService.instance.eventBus.registerHandler('ping-'+(consumer?'c':'p')){
             if(consumer){
-                vertxService.container.deployVerticle AnotherConsumerVerticle, 8
+                vertxService.container.deployVerticle AnotherConsumerVerticle, null, 8 , {} as Handler<String>
                 vertxService.instance.eventBus.publish('ping-p',1)
             }
             else{
-                vertxService.container.deployVerticle AnotherVerticle, 8
+                vertxService.container.deployVerticle AnotherVerticle, null, 8 , {} as Handler<String>
             }
         }
 
         if(!consumer)
-            vertxService.container.deployVerticle InitVerticle, 1
+            vertxService.container.deployVerticle InitVerticle, null, 1 , {} as Handler<String>
 
 
-        vertxService.container.deployVerticle TestVerticle
+        vertxService.container.deployVerticle TestVerticle, null, 1 , {} as Handler<String>
 
         //event for: 'vertx', topic: 'test', data: 'lol'
 
